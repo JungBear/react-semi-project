@@ -1,4 +1,5 @@
 import products from "../../features/products/product"
+import { increseCount, minusCount } from "../../features/products/productslice"
 
 
 export default function ProductDetail(){
@@ -6,28 +7,35 @@ export default function ProductDetail(){
     
     return(
         <div>
-            <div>
-                <img src={products.src}></img>
+            <div className="detail-img">
+                <img src={products[0].src}></img>
             </div>
-            <div>
-                <div>{products.productName}</div>
-                <div>{products.price}</div>
+            <div className="detail-info">
+                <div>{products[0].productName}</div>
+                <div>{products[0].price}</div>
                 <p>색상</p>
-                
-                <input id="color1" name="color" type="radio" value={products[0].color[0]}></input>
-                <label for="color1">{products[0].color[0]}</label>
-                <input id="color2" name="color" type="radio" value={products[0].color[1]}></input>
+                    {products[0].color.map((color, i)=>(
+                        <div className="detail-color-radio">
+                            <input type="radio" id={`color${i}`} name="color" value={color}/> 
+                            <label for={`color${i}`}>{color}</label>
+                        </div>
+                        
+                    ))}
                 <p>사이즈</p>
-                <input type="radio" value={products[0].szie[0]}></input>
+                    {products[0].szie.map((size, i) =>(
+                        <input type="radio" id={`size${i}`} name="size" value={size}>{products[0].szie[0]}/</input>>
+                        <label for={`size${i}`}></label>
+                    ))}
+                
                 
                  <div>
-                    
-                    <button> - </button>
-                    <button> + </button>
+                    <button onClick={minusCount}> - </button>
+                        {products[0].count}
+                    <button onClick={increseCount}> + </button>
                 </div>
                 <div>
                     <p>총 결제금액</p>
-                    <p>{products.price}원</p>
+                    <p>{products[0].price * products[0].count}원</p>
                 </div>
                 
             </div>
