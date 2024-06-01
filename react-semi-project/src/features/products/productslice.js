@@ -29,7 +29,7 @@ const initialState = {
             price: 37000,
             color: ["스카이블루", "블랙"],
             size: ["S/M", "L/XL", "2XL/3XL", "4XL/5XL"],
-            src: process.env.PUBLIC_URL + "/public/img/브이앤 나일론 반바지 2color.jpg",
+            src: process.env.PUBLIC_URL + "/img/브이앤 나일론 반바지 2color.jpg",
             count : 0
         }
     ]

@@ -12,8 +12,10 @@ export default function Home() {
                 <div className="products-grid">
                     {products.map((product, index) => (
                         <div key={index} className="product-item">
-                            <img src={product.src} alt={product.productName} className="product-image" />
+                            <button className='img-btn'><img src={product.src} alt={product.productName} className="product-image" />
                             <h2>{product.productName}</h2>
+                            </button>
+                            
                             <p>가격: {product.price}원</p>
                         </div>
                     ))}
