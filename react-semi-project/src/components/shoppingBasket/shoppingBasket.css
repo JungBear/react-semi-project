@@ -1,0 +1,42 @@
+.shoppingcart-container{
+    padding: 0;
+    margin: 0;
+}
+
+.shoppingcart-inner{
+    width: 100%;
+}
+
+.shoppingcart-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.shoppingcart-title-content{
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.order-table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.order-table-head th{
+    border-bottom: 1px solid black; /* 위쪽에 선 그리기 */
+    border-top: 1px solid black; /* 아래쪽에 선 그리기 */
+    font-weight: 100; /* 폰트 두껍게 */
+    font-size: 0.825rem; /* 폰트 사이즈 조정 */
+    padding: 0.5rem;
+}
+
+.order-table-body td {
+    text-align: center;
+    vertical-align: middle; /* 수직 중앙 정렬 */
+    padding: 0.5rem auto;
+}
+
+/* .text- */
