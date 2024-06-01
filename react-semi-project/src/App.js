@@ -1,15 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
-import { Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import ShoppingBasket from './components/shoppingBasket/shoppingBasket';
 import ProductDetail from './components/products-detail/productsDetail';
+import Header from './components/header/header';
+import Home from './components/home/home';
 
 function App() {
   return (
     <div>
-      <header/>
-      <Route path='/product' element={<ProductDetail />}/>
-      <Route path='/cart' element={<ShoppingBasket/>}/>
+      <Header/>
+      <Routes>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/product' element={<ProductDetail />}/>
+        <Route path='/cart' element={<ShoppingBasket/>}/>
+      </Routes>
+     
+      
     </div>
   );
 }
