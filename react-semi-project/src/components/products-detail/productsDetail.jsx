@@ -4,7 +4,7 @@ export default function ProductDetail(){
     return(
         <div>
             <div>
-                <img src={product.src}></img>
+                <img src={products.src}></img>
             </div>
             <div>
                 <div>{products.productName}</div>

@@ -1,4 +1,4 @@
-export default products = 
+const products = 
 [
     {
         productName : "스트릿 스프레이 루즈핏 반팔티 5color",
@@ -25,3 +25,5 @@ export default products =
         src : "./img/브이앤 나일론 반바지 2color.jpg"
     }
 ]
+
+export default products;

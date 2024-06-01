@@ -9,14 +9,11 @@ import Home from './components/home/home';
 function App() {
   return (
     <div>
-      <Header/>
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/product' element={<ProductDetail />}/>
-        <Route path='/cart' element={<ShoppingBasket/>}/>
-      </Routes>
-     
-      
+      <header/>
+      <Route> 
+        <Routes path='/product' element={<ProductDetail />}/>
+        <Routes path='/cart' element={<ShoppingBasket/>}/>
+      </Route>
     </div>
   );
 }
