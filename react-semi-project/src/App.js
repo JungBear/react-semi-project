@@ -7,6 +7,7 @@ import ProductDetail from './components/products-detail/productsDetail';
 function App() {
   return (
     <div>
+      <header/>
       <Route path='/product' element={<ProductDetail />}/>
       <Route path='/cart' element={<ShoppingBasket/>}/>
     </div>
