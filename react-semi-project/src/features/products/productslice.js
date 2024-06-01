@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     products: [
@@ -51,6 +51,7 @@ const productSlice = createSlice({
 
         }
     },
+ 
 });
 
 export const {increseCount, minusCount,addOnCart, deleteFromCart} = productSlice.actions;
