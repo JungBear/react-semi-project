@@ -33,6 +33,11 @@
     padding: 0.5rem;
 }
 
+.order-table-body th {
+    font-weight: 100; /* 폰트 두껍게 */
+    font-size: 0.825rem; /* 폰트 사이즈 조정 */
+}
+
 .order-table-body td {
     text-align: center;
     vertical-align: middle; /* 수직 중앙 정렬 */

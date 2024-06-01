@@ -1,11 +1,28 @@
 import React from "react"
 import "./shoppingBasket.css"
 import { useDispatch, useSelector } from "react-redux";
-import { deleteFromCart } from "../../features/products/productslice";
+import {  removeFromCart } from "../../features/cart/cartslice";
+import { changeQuantity } from "../../features/products/productslice";
 
 export default function ShoppingBasket(){
-
+    const dispatch = useDispatch(); // useDispatch를 사용하여 dispatch 함수 가져오기
     const products = useSelector((state) => state.products.products);
+    const cart = useSelector((state) => state.cart.cartItems);
+    
+    const handleCountChange = (e) => {
+        dispatch(changeQuantity({ index: 0, quantity: e.target.value }));
+      };
+
+    const handleRemoveFromCart = () => {
+        dispatch(removeFromCart(products[0].id)); // 첫 번째 제품의 ID를 액션으로 전달
+      };
+      
+      // 삭제 버튼에 onClick 이벤트 핸들러 추가
+      <input type="button" onClick={handleRemoveFromCart} value={"삭제"}/>
+
+    const totalPrice = products[0].price * products[0].count;
+    const formattedPrice = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(totalPrice);
+    const priceWithoutCurrency = formattedPrice.replace('₩', ''); // 원화 표시 제거
 
     return(
         <div className="shoppingcart-container">
@@ -40,24 +57,31 @@ export default function ShoppingBasket(){
                         </thead>
 
                         <tbody className="order-table-body">
-                            <tr>
+                            {cart.map((item, index) => (
+                                <tr key={index}>
                                 <td><input type="checkbox"/></td>
                                 <td>
-                                    <img src={products[0].src} alt={products[0].productName} style={{ width: "50px", height: "auto" }} />
+                                    <img src={item.src} alt={item.productName} style={{ width: "50px", height: "auto" }} />
                                 </td>
                                 <td>
-                                    <p>{products[0].productName}</p>
-                                    <p>{products[0].color[0]}</p>
+                                    <p>{item.productName}</p>
+                                    <p>{item.color[0]}</p>
                                 </td>
                                 <td>
-                                    <input type="text" value={products[0].count} size={1}></input>
+                                    <input
+                                    type="text"
+                                    value={item.quantity}
+                                    size={1}
+                                    onChange={(e) => handleCountChange(e, index)}
+                                    />
                                 </td>
-                                <td>{products[0].price}</td>
-                                <td>0원</td>
+                                <td>{new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(item.price * item.quantity)}</td>
+                                <td>무료</td>
                                 <td>
-                                    {/* <input type="button" onClick={useDispatch(deleteFromCart)}/> */}
-                                </td> 
-                            </tr>
+                                    <input type="button" onClick={() => handleRemoveFromCart(item.id)} value={"삭제"}/>
+                                </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                     
