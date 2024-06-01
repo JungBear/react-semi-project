@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     products: [
@@ -35,6 +35,7 @@ const productSlice = createSlice({
     reducers: {
         // 여기에 필요한 리듀서 추가
     },
+ 
 });
 
 export const {} = productSlice.actions;
