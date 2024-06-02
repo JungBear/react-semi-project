@@ -9,7 +9,9 @@ export default function ProductDetail(){
     const [selectedSize, setSelectedSize] = useState('');
 
     function CountDecrease(){
-        setCount(count -1);
+        if(count > 0){
+            setCount(count -1);
+        }
     }
     function CountIncrease(){
         setCount(count +1);
@@ -40,7 +42,7 @@ export default function ProductDetail(){
                             </div>
                         ))}
                 </div>
-                <div className="dtail-size-box">
+                <div className="detail-size-box">
                     <p>사이즈</p>
                         {products[0].szie.map((size, i) =>(
                             <div className="detail-size-radio">
@@ -51,12 +53,14 @@ export default function ProductDetail(){
                 </div>
                 
                 <div className="detail-count">
-                    
-                    <span>{selectedColor}</span>
-                    <span>{selectedSize}</span>
-                    <button onClick={CountDecrease}> - </button>
-                        {count}
-                    <button onClick={CountIncrease}> + </button>
+                    {/* radio 2개 선택되면 비우고 새로운 개체받기 */}
+                    <ul className="detail-selected">
+                        <li>{selectedColor}</li>
+                        <li>{selectedSize}</li>
+                    </ul>
+                    <button onClick={CountDecrease}>-</button>
+                    <div>{count}</div>
+                    <button onClick={CountIncrease}>+</button>
                 </div>
 
                 <div className="total-price">

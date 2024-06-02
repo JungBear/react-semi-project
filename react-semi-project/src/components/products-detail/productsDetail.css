@@ -29,7 +29,6 @@
 
 .detail-color-radio :hover{
     background: gray;
-    
 }
 
 .detail-color-radio input{
@@ -52,15 +51,18 @@
 
 .detail-count{
     /* display: none; */
+    display: flex;
+    justify-content: space-between;
 }
 
-.detail-count span{
-    border: 1px solid;
-    border-radius: 8px;
-    width: 100px;
-    height: 50px;
-    padding: 10px;
-    margin: 0px 5px;
+.detail-selected{
+    display: inline-flex;
+    list-style: none;
+    width: 60%;
+}
+.detail-selected li{
+    padding-right: 30px;
+    
 }
 
 .detail-count button{
@@ -71,23 +73,21 @@
     border: none;
 }
 
-/* .detail-count button :active, :hover{
-    background: gray;
-} */
-
 .total-price{
     display: flex;
     justify-content: space-between;
 }
 
 .buy-btn{
-    width: 200px;
+    border: none;
+    width: 50%;
     height: 50px;
     background-color: blanchedalmond;
 }
 
 .cart-btn{
-    width: 200px;
+    border: 1px solid blanchedalmond;
+    width: 50%;
     height: 50px;
     background-color: transparent;
 }
