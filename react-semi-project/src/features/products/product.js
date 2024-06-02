@@ -26,7 +26,16 @@ const products =
         szie : ["S/M", "L/XL", "2XL/3XL", "4XL/5XL"],
         src: process.env.PUBLIC_URL + "/public/img/브이앤 나일론 반바지 2color.jpg",
         count : 0
+    }, {
+        productName : "레이던 오버핏 롱 야상 점퍼",
+        price : 64800,
+        category : "아우터",
+        color : ["카키", "블랙"],
+        szie : ["free"],
+        src: process.env.PUBLIC_URL + "/public/img/레이던 오버핏 롱 야상 점퍼.jpg",
+        count : 0
     }
+
 ]
 
 export default products;

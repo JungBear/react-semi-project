@@ -3,6 +3,7 @@ import products from "../../features/products/product";
 import "./productsDetail.css";
 
 
+
 export default function ProductDetail(){
     const [count, setCount] = useState(products[0].count);
     const [selectedColor, setSelectedColor] = useState('');

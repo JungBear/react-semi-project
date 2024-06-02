@@ -1,15 +1,10 @@
-.home-container {
+.tshirt-container {
     padding: 20px;
     text-align: center;
     background-color: #f0f8ff;
 }
 
-.main-con {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.products-grid {
+.tshirt-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -17,7 +12,7 @@
     margin-top: 20px;
 }
 
-.product-item {
+.tshirt-item {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -27,33 +22,27 @@
     transition: transform 0.3s;
 }
 
-.product-item:hover {
+.tshirt-item:hover {
     transform: translateY(-5px);
-}
-
-.img-btn {
-    background: none;
-    border: none;
-    padding: 0;
-    width: 100%;
-    text-align: left;
     cursor: pointer;
 }
 
-.product-image {
+.tshirt-image {
     width: 100%;
     height: auto;
 }
 
-.product-name {
-    font-size: 1.2em;
-    margin: 10px 0;
-    color: #333;
-    text-align: center;
+.tshirt-info {
+    padding: 15px;
 }
 
-.product-price {
+.tshirt-name {
+    font-size: 1.2em;
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.tshirt-price {
     font-size: 1em;
     color: #666;
-    text-align: center;
 }
