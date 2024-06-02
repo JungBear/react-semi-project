@@ -31,8 +31,18 @@ const initialState = {
             size: ["S/M", "L/XL", "2XL/3XL", "4XL/5XL"],
             src: process.env.PUBLIC_URL + "/img/브이앤 나일론 반바지 2color.jpg",
             count : 0
+        },{
+          
+            productName : "레이던 오버핏 롱 야상 점퍼",
+            price : 64800,
+            category : "아우터",
+            color : ["카키", "블랙"],
+            szie : ["free"],
+            src: process.env.PUBLIC_URL + "/img/레이던 오버핏 롱 야상 점퍼.jpg",
+            count : 0
         }
-    ]
+    ],
+    searchQuery: ""
 };
 
 const productSlice = createSlice({
@@ -60,9 +70,12 @@ const productSlice = createSlice({
           itemToDecrease.quantity--;
         }
       },
+      setSearchQuery(state, action) {
+        state.searchQuery = action.payload;
+      }
     },
  
 });
 
-export const {  increaseQuantity,decreaseQuantity,changeQuantity} = productSlice.actions;
+export const {  increaseQuantity,decreaseQuantity,changeQuantity,setSearchQuery} = productSlice.actions;
 export default productSlice.reducer;

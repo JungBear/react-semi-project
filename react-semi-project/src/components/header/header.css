@@ -1,58 +1,92 @@
+/* 전체 컨테이너 */
 .header-con {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    background-color: blanchedalmond;
-    padding: 10px;
-  }
-  
-  .header-box {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    
-    margin-bottom: 10px;
-  }
+  background-color: #333;
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
 
-  .main-logo h1{
-    margin: 0;
-    color: black;
-    text-decoration: none;
-   
-  }
-  
-  .serch-box {
-    padding: 5px;
-  }
-  
-  .icon {
-    padding: 5px 10px;
-  }
-  
-  .radio-group {
-    display: flex;
-    gap: 0;
-  }
-  
-  .radio-group label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    font-weight: 600;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .radio-group input[type="radio"] {
-    display: none;
-  }
-  
-  .radio-group Link input[type="radio"]:checked + label {
-    opacity: 0.3;
-  }
-  
- 
-  
+/* 상단 박스 */
+.header-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* 로고 */
+.main-logo {
+  font-size: 1.8em;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* 검색 박스 */
+.search-box {
+  flex-grow: 1;
+  margin: 0 20px;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  font-size: 1em;
+}
+
+/* 장바구니 버튼 */
+.icon {
+  background-color: #ff6f61;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.icon:hover {
+  background-color: #e65a50;
+}
+
+/* 네비게이션 바 */
+.nav-bar {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+/* 네비게이션 링크 */
+.nav-link {
+  font-size: 1.2em;
+  color: white;
+  text-decoration: none;
+  position: relative;
+  padding: 5px 10px;
+}
+
+.nav-link::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #ff6f61;
+  transition: width 0.3s;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link:hover {
+  color: #ff6f61;
+}
+/* 선택된 네비게이션 항목에 배경색 추가 */
+.nav-link.active {
+  color: #ff6f61;
+}

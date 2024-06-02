@@ -1,5 +1,5 @@
 import products from "../../features/products/product"
-import { increseCount, minusCount } from "../../features/products/productslice"
+//import { increseCount, minusCount } from "../../features/products/productslice"
 
 
 export default function ProductDetail(){
