@@ -2,28 +2,35 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    padding: 25px;
 }
 
 .detail-img{
-    padding: 10px;
+    padding: 0px 15px 0px 10px;
 }
 
 .detail-info{
     
 }
 
+.detail-product-name{
+    font-size: 25px;
+}
 
 .detail-color-radio{
     display: inline-block;
     border: 1px solid gray;
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 10px;
     width: 100px;
     text-align: center;
     margin: 5px;
 }
 
+.detail-color-radio :hover{
+    background: gray;
+    
+}
 
 .detail-color-radio input{
     display: none;
@@ -32,7 +39,7 @@
 .detail-size-radio{
     display: inline-block;
     border: 1px solid gray;
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 10px;
     width: 100px;
     text-align: center;
@@ -43,8 +50,34 @@
     display: none;
 }
 
-.total-price{
+.detail-count{
+    /* display: none; */
+}
 
+.detail-count span{
+    border: 1px solid;
+    border-radius: 8px;
+    width: 100px;
+    height: 50px;
+    padding: 10px;
+    margin: 0px 5px;
+}
+
+.detail-count button{
+    width: 40px;
+    height: 40px;
+    margin: 0px 15px;
+    background-color: lightgray;
+    border: none;
+}
+
+/* .detail-count button :active, :hover{
+    background: gray;
+} */
+
+.total-price{
+    display: flex;
+    justify-content: space-between;
 }
 
 .buy-btn{
