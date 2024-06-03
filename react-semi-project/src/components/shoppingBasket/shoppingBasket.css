@@ -3,6 +3,10 @@
     margin: 0;
 }
 
+.font-bold{
+    font-weight: bold;
+}
+
 .shoppingcart-inner{
     width: 100%;
 }
@@ -19,13 +23,15 @@
     font-size: 1rem;
 }
 
-.order-table {
+.order-table,
+.order-totalsummary {
     width: 90%;
     border-collapse: collapse;
     margin: auto;
 }
 
 .order-table-head th{
+    background-color: #fbfafa;
     border-bottom: 1px solid black; /* 위쪽에 선 그리기 */
     border-top: 1px solid black; /* 아래쪽에 선 그리기 */
     font-weight: 100; /* 폰트 두껍게 */
@@ -42,6 +48,16 @@
     text-align: center;
     vertical-align: middle; /* 수직 중앙 정렬 */
     padding: 0.5rem auto;
+}
+
+.table-body-product-name{
+    text-align: left;
+}
+
+.table-body-select-option{
+    text-align: left;
+    font-size: 0.9rem;
+    color: #707070;
 }
 
 /* .text- */

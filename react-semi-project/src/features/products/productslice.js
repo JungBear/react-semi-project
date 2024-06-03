@@ -32,7 +32,7 @@ const initialState = {
             src: process.env.PUBLIC_URL + "/img/브이앤 나일론 반바지 2color.jpg",
             count : 0
         },{
-          
+            id : 4,
             productName : "레이던 오버핏 롱 야상 점퍼",
             price : 64800,
             category : "아우터",
@@ -57,11 +57,6 @@ const productSlice = createSlice({
           itemToIncrease.quantity++;
         }
       },
-      // 장바구니에서 상품 수량 직접 입력 액션
-      changeQuantity(state, action) {
-        const { index, quantity } = action.payload;
-        state.products[index].count = quantity;
-        },
       // 장바구니에서 상품 수량 감소 액션
       decreaseQuantity(state, action) {
         const idToDecrease = action.payload;
@@ -77,5 +72,5 @@ const productSlice = createSlice({
  
 });
 
-export const {  increaseQuantity,decreaseQuantity,changeQuantity,setSearchQuery} = productSlice.actions;
+export const {  increaseQuantity,decreaseQuantity,setSearchQuery} = productSlice.actions;
 export default productSlice.reducer;

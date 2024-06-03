@@ -1,28 +1,30 @@
 import React from "react"
 import "./shoppingBasket.css"
 import { useDispatch, useSelector } from "react-redux";
-import {  removeFromCart } from "../../features/cart/cartslice";
-import { changeQuantity } from "../../features/products/productslice";
+import {  changeQuantity, removeFromCart } from "../../features/cart/cartslice";
 
 export default function ShoppingBasket(){
     const dispatch = useDispatch(); // useDispatch를 사용하여 dispatch 함수 가져오기
     const products = useSelector((state) => state.products.products);
     const cart = useSelector((state) => state.cart.cartItems);
     
-    const handleCountChange = (e) => {
-        dispatch(changeQuantity({ index: 0, quantity: e.target.value }));
-      };
+    const handleCountChange = (e, index) => {
+        const newQuantity = parseInt(e.target.value, 10);
+        if (newQuantity >= 0) { // 수량이 0보다 큰지 확인
+            dispatch(changeQuantity({ index, quantity: newQuantity }));
+        }
+    };
 
-    const handleRemoveFromCart = () => {
-        dispatch(removeFromCart(products[0].id)); // 첫 번째 제품의 ID를 액션으로 전달
+    const handleRemoveFromCart = (index) => {
+        dispatch(removeFromCart(products[index].id)); // 첫 번째 제품의 ID를 액션으로 전달
       };
       
       // 삭제 버튼에 onClick 이벤트 핸들러 추가
-      <input type="button" onClick={handleRemoveFromCart} value={"삭제"}/>
+    //   <input type="button" onClick={handleRemoveFromCart} value={"삭제"}/>
 
-    const totalPrice = products[0].price * products[0].count;
-    const formattedPrice = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(totalPrice);
-    const priceWithoutCurrency = formattedPrice.replace('₩', ''); // 원화 표시 제거
+    // const totalPrice = products[0].price * products[0].count;
+    // const formattedPrice = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(totalPrice);
+    // const priceWithoutCurrency = formattedPrice.replace('₩', ''); // 원화 표시 제거
 
     return(
         <div className="shoppingcart-container">
@@ -64,8 +66,8 @@ export default function ShoppingBasket(){
                                     <img src={item.src} alt={item.productName} style={{ width: "50px", height: "auto" }} />
                                 </td>
                                 <td>
-                                    <p>{item.productName}</p>
-                                    <p>{item.color[0]}</p>
+                                    <p className="table-body-product-name font-bold">{item.productName}</p>
+                                    <p className="table-body-select-option">{item.color[index]}, {item.size[index]}</p>
                                 </td>
                                 <td>
                                     <input
@@ -75,14 +77,27 @@ export default function ShoppingBasket(){
                                     onChange={(e) => handleCountChange(e, index)}
                                     />
                                 </td>
-                                <td>{new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(item.price * item.quantity)}</td>
+                                <td className="font-bold">{new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(item.price * item.quantity).replace('₩', '')}원</td>
                                 <td>무료</td>
                                 <td>
-                                    <input type="button" onClick={() => handleRemoveFromCart(item.id)} value={"삭제"}/>
+                                    <input type="button" onClick={() => handleRemoveFromCart(index)} value={"삭제"}/>
                                 </td>
                                 </tr>
                             ))}
                         </tbody>
+                    </table>
+
+                    <table className="order-totalsummary">
+                        <colgroup>
+                            <col style={{width:"17%"}}></col>
+                            <col style={{width:"19%"}}></col>
+                            <col style={{width:"auto"}}></col>
+                            <col style={{width:"17%"}}></col>
+                        </colgroup>
+
+                        <thead>
+
+                        </thead>
                     </table>
                     
                 </div>

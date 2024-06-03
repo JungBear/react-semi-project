@@ -19,6 +19,11 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    // 장바구니에서 상품 수량 직접 입력 액션
+    changeQuantity(state, action) {
+      const { index, quantity } = action.payload;
+      state.cartItems[index].quantity = quantity;
+      },
     // 장바구니에 상품 추가 액션
     addToCart(state, action) {
       const newItem = action.payload;
@@ -42,7 +47,8 @@ const cartSlice = createSlice({
 
 export const {
   addToCart,
-  removeFromCart
+  removeFromCart,
+  changeQuantity
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
