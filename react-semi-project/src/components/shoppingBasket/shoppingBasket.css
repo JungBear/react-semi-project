@@ -7,6 +7,11 @@
     font-weight: bold;
 }
 
+strong,
+.sign-span{
+    font-size: 1.5rem;
+}
+
 .shoppingcart-inner{
     width: 100%;
 }
@@ -39,6 +44,14 @@
     padding: 0.5rem;
 }
 
+.order-table-items{
+    border-bottom: 1px solid #ccc;
+}
+
+.order-table-body{
+    border-bottom: 1px solid black;
+}
+
 .order-table-body th {
     font-weight: 100; /* 폰트 두껍게 */
     font-size: 0.825rem; /* 폰트 사이즈 조정 */
@@ -60,4 +73,30 @@
     color: #707070;
 }
 
-/* .text- */
+.order-totalsummary{
+    margin-top: 2rem;
+    width: 90%;
+    
+}
+
+.order-totalsummary th
+{
+    padding: 1rem;
+    text-align: center;
+}
+
+.order-totalsummary td
+{
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.order-totalsummary-title
+{
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #ccc;
+    background-color: #fbfafa;
+}
+.order-totalsummary tbody{
+    border-bottom: 1px solid #000;
+}

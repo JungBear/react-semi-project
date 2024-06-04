@@ -25,6 +25,18 @@ export default function ShoppingBasket(){
     // const totalPrice = products[0].price * products[0].count;
     // const formattedPrice = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(totalPrice);
     // const priceWithoutCurrency = formattedPrice.replace('₩', ''); // 원화 표시 제거
+    let totalProductAmount = 0;
+    const productPrice = (item)=>{
+        let tempProductPrice = item.price * item.quantity;
+        
+        totalProductAmount += tempProductPrice;
+        // console.log(totalProductAmount);
+        return  fommater(item.price * item.quantity);
+    }
+    
+    function fommater(num){
+        return new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(num).replace('₩', '');
+    }
 
     return(
         <div className="shoppingcart-container">
@@ -60,7 +72,7 @@ export default function ShoppingBasket(){
 
                         <tbody className="order-table-body">
                             {cart.map((item, index) => (
-                                <tr key={index}>
+                                <tr className="order-table-items" key={index}>
                                 <td><input type="checkbox"/></td>
                                 <td>
                                     <img src={item.src} alt={item.productName} style={{ width: "50px", height: "auto" }} />
@@ -77,7 +89,7 @@ export default function ShoppingBasket(){
                                     onChange={(e) => handleCountChange(e, index)}
                                     />
                                 </td>
-                                <td className="font-bold">{new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(item.price * item.quantity).replace('₩', '')}원</td>
+                                <td className="font-bold">{productPrice(item)}원</td>
                                 <td>무료</td>
                                 <td>
                                     <input type="button" onClick={() => handleRemoveFromCart(index)} value={"삭제"}/>
@@ -89,15 +101,26 @@ export default function ShoppingBasket(){
 
                     <table className="order-totalsummary">
                         <colgroup>
-                            <col style={{width:"17%"}}></col>
-                            <col style={{width:"19%"}}></col>
+                            <col style={{width:"23%"}}></col>
+                            <col style={{width:"25%"}}></col>
                             <col style={{width:"auto"}}></col>
-                            <col style={{width:"17%"}}></col>
                         </colgroup>
 
-                        <thead>
-
+                        <thead className="order-totalsummary-thead">
+                            <tr className="order-totalsummary-title">
+                                <th>총 상품금액</th>
+                                <th>총 배송비</th>
+                                <th>결제 예상 금액</th>
+                            </tr>
                         </thead>
+
+                        <tbody className="font-bold">
+                            <tr>
+                                <td><strong>{fommater(totalProductAmount)}</strong>원</td>
+                                <td><span className="sign-span">+</span><strong>0</strong>원</td>
+                                <td><span className="sign-span">=</span><strong>{fommater(totalProductAmount)}</strong>원</td>
+                            </tr>
+                        </tbody>
                     </table>
                     
                 </div>

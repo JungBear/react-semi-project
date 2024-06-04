@@ -11,7 +11,16 @@ const initialState = {
         size: ["free"],
         src: process.env.PUBLIC_URL + "/img/스트릿 스프레이 루즈핏 반팔티 5color.jpg",
         quantity : 1
-    },
+    }, {   
+      id : 2,
+      productName: "아이스 쿨 무지 반팔티 2color",
+      category: "상의",
+      price: 32500,
+      color: ["화이트", "블랙"],
+      size: ["S/M", "L/XL", "2XL/3XL", "4XL/5XL"],
+      src: process.env.PUBLIC_URL + "/img/아이스 쿨 무지 반팔티 2color.jpg",
+      quantity : 1
+  },
   ], // 장바구니에 담긴 상품 목록을 담을 배열
 };
 
