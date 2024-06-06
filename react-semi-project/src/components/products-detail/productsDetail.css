@@ -114,3 +114,10 @@
     height: 50px;
     background-color: transparent;
 }
+
+.cart-btn:hover,
+.buy-btn:hover,
+.cart-btn:active,
+.buy-btn:active{
+    cursor: pointer;
+}

@@ -68,7 +68,7 @@ export default function ProductDetail(){
             </div>
             <div className="detail-info">
                 <h2>{products[0].productName}</h2>
-                <h3>{products[0].price}원</h3>
+                <h3>{products[0].price.toLocaleString()}원</h3>
 
                 <div className="detail-color">
                     <div>색상</div>
@@ -109,7 +109,7 @@ export default function ProductDetail(){
                 </div>
                 <div className="total-price">
                     <div>총 결제금액</div>
-                    <div>{totalPrice}원</div>
+                    <div>{totalPrice.toLocaleString()}원</div>
                 </div>
                 <div>
                     <button className="buy-btn">바로구매</button>
