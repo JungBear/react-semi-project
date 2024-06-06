@@ -1,7 +1,6 @@
 .detail-context-box{
     display: flex;
     justify-content: center;
-    align-items: center;
     padding: 25px;
 }
 
@@ -10,71 +9,94 @@
 }
 
 .detail-info{
-    
+    width: 50%;
 }
 
-.detail-product-name{
-    font-size: 25px;
+.detail-color{
+    display: inline-flex;
+    padding-bottom: 20px;
 }
 
-.detail-color-radio{
-    display: inline-block;
+.detail-color-button{
     border: 1px solid gray;
     border-radius: 8px;
+    background: transparent;
     padding: 10px;
     width: 100px;
     text-align: center;
     margin: 5px;
 }
 
-.detail-color-radio :hover{
-    background: gray;
+.detail-color-button:hover,
+.detail-color-button:focus,
+.detail-color-button:active {
+    background: #333;
+    color: white;
+    transition: background-color 0.5s;
+    cursor: pointer;
 }
 
-.detail-color-radio input{
-    display: none;
+.detail-size{
+    display: flex;
+    padding-bottom: 20px;
 }
 
-.detail-size-radio{
-    display: inline-block;
+.detail-size-button{
     border: 1px solid gray;
     border-radius: 8px;
+    background: transparent;
     padding: 10px;
     width: 100px;
     text-align: center;
     margin: 5px;
 }
 
-.detail-size-radio input{
-    display: none;
+.detail-size-button:hover,
+.detail-size-button:focus,
+.detail-size-button:active {
+    background: #333;
+    color: white;
+    transition: background-color 0.5s;
+    cursor: pointer;
+}
+
+.detail-color-button.selected,
+.detail-size-button.selected {
+    background: #333;
+    color: white;
+    transition: background-color 0.5s;
+}
+
+.detail-size-button.disabled{
+    background: lightgray;
+    color: gray;
 }
 
 .detail-count{
-    /* display: none; */
-    display: flex;
-    justify-content: space-between;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
 }
 
 .detail-selected{
-    display: inline-flex;
-    list-style: none;
-    width: 60%;
-}
-.detail-selected li{
-    padding-right: 30px;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid lightgray;
     
 }
 
-.detail-count button{
-    width: 40px;
-    height: 40px;
-    margin: 0px 15px;
-    background-color: lightgray;
-    border: none;
+.seleted-delete-btn{
+    background: transparent;
+    border: 1px solid gray;
+    border-radius: 7px;
+    width: 30px;
+    height: 30px;
 }
 
 .total-price{
     display: flex;
+    font-size: 20px;
+    padding: 30px 0px 10px 0px;
     justify-content: space-between;
 }
 
@@ -82,11 +104,12 @@
     border: none;
     width: 50%;
     height: 50px;
-    background-color: blanchedalmond;
+    background-color: #333;
+    color: white;
 }
 
 .cart-btn{
-    border: 1px solid blanchedalmond;
+    border: 1px solid #333;
     width: 50%;
     height: 50px;
     background-color: transparent;
