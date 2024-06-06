@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import "./shoppingBasket.css"
 import { useDispatch, useSelector } from "react-redux";
 import {  changeQuantity, removeFromCart } from "../../features/cart/cartslice";
@@ -7,6 +7,14 @@ export default function ShoppingBasket(){
     const dispatch = useDispatch(); // useDispatch를 사용하여 dispatch 함수 가져오기
     const products = useSelector((state) => state.products.products);
     const cart = useSelector((state) => state.cart.cartItems);
+    
+    const [allChecked, setAllChecked] = useState(true);
+    const [checkedItems, setCheckedItems] = useState([]);
+
+    useEffect(() => {
+        // 장바구니 항목이 변경될 때마다 체크된 상태를 업데이트
+        setCheckedItems(cart.map((_, index) => index));
+    }, [cart]);
     
     const handleCountChange = (e, index) => {
         const newQuantity = parseInt(e.target.value, 10);
@@ -18,20 +26,42 @@ export default function ShoppingBasket(){
     const handleRemoveFromCart = (index) => {
         dispatch(removeFromCart(products[index].id)); // 첫 번째 제품의 ID를 액션으로 전달
       };
-      
-      // 삭제 버튼에 onClick 이벤트 핸들러 추가
-    //   <input type="button" onClick={handleRemoveFromCart} value={"삭제"}/>
+    
+    // thead의 체크박스를 해제하면 전부해제, 체크하면 전부 체크
+    const handleAllCheckChange = (e) => {
+        const isChecked = e.target.checked;
+        setAllChecked(isChecked);
+        if (isChecked) {
+            setCheckedItems(cart.map((_, index) => index));
+        } else {
+            setCheckedItems([]);
+        }   
+    };
 
-    // const totalPrice = products[0].price * products[0].count;
-    // const formattedPrice = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(totalPrice);
-    // const priceWithoutCurrency = formattedPrice.replace('₩', ''); // 원화 표시 제거
-    let totalProductAmount = 0;
+    // 각각의 상품들을 체크하면 체크, 해제되면 해제
+    const handleItemCheckChange = (e, index) => {
+        const isChecked = e.target.checked;
+        if (isChecked) {
+            setCheckedItems([...checkedItems, index]);
+        } else {
+            setCheckedItems(checkedItems.filter(item => item !== index));
+        }
+    };
+
+    // 선택된 상품들의 가격만 총 상품금액에 표시
+    const calculateTotalProductAmount = () => {
+        return checkedItems.reduce((total, index) => {
+            const item = cart[index];
+            return total + (item.price * item.quantity);
+        }, 0);
+    };
+      
+    let totalProductAmount = calculateTotalProductAmount();
+    
     const productPrice = (item)=>{
         let tempProductPrice = item.price * item.quantity;
-        
-        totalProductAmount += tempProductPrice;
         // console.log(totalProductAmount);
-        return  fommater(item.price * item.quantity);
+        return  fommater(tempProductPrice);
     }
     
     function fommater(num){
@@ -59,7 +89,7 @@ export default function ShoppingBasket(){
                         <thead className="order-table-head">
                             <tr>
                                 <th>
-                                    <input type="checkbox"></input>
+                                    <input type="checkbox" checked={allChecked} onChange={handleAllCheckChange}></input>
                                 </th>
                                 <th>이미지</th>
                                 <th>상품정보</th>
@@ -73,7 +103,7 @@ export default function ShoppingBasket(){
                         <tbody className="order-table-body">
                             {cart.map((item, index) => (
                                 <tr className="order-table-items" key={index}>
-                                <td><input type="checkbox"/></td>
+                                <td><input type="checkbox" checked={checkedItems.includes(index)} onChange={(e) => handleItemCheckChange(e, index)}/></td>
                                 <td>
                                     <img src={item.src} alt={item.productName} style={{ width: "50px", height: "auto" }} />
                                 </td>
