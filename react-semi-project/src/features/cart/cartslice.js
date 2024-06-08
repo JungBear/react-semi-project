@@ -50,14 +50,32 @@ const cartSlice = createSlice({
     removeFromCart(state, action) {
       const idToRemove = action.payload;
       state.cartItems = state.cartItems.filter(item => item.id !== idToRemove);
-    },
+    },    
+    // 장바구니에서 상품 수량 증가 액션
+    increaseQuantity(state, action) {
+        const idToIncrease = action.payload;
+        const itemToIncrease = state.cartItems.find(item => item.id === idToIncrease.id);
+        if (itemToIncrease) {
+          itemToIncrease.quantity++;
+        }
+      },     
+       // 장바구니에서 상품 수량 감소 액션
+      decreaseQuantity(state, action) {
+        const idToDecrease = action.payload;
+        const itemToDecrease = state.cartItems.find(item => item.id === idToDecrease.id);
+        if (itemToDecrease && itemToDecrease.quantity > 1) {
+          itemToDecrease.quantity--;
+        }
+      },
   },
 });
 
 export const {
   addToCart,
   removeFromCart,
-  changeQuantity
+  changeQuantity,
+  increaseQuantity,
+  decreaseQuantity
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

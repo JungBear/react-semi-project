@@ -37,7 +37,7 @@ const initialState = {
             price : 64800,
             category : "아우터",
             color : ["카키", "블랙"],
-            szie : ["free"],
+            size : ["free"],
             src: process.env.PUBLIC_URL + "/img/레이던 오버핏 롱 야상 점퍼.jpg",
             count : 0
         }
@@ -49,22 +49,6 @@ const productSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
-    // 장바구니에서 상품 수량 증가 액션
-    increaseQuantity(state, action) {
-        const idToIncrease = action.payload;
-        const itemToIncrease = state.cartItems.find(item => item.id === idToIncrease);
-        if (itemToIncrease) {
-          itemToIncrease.quantity++;
-        }
-      },
-      // 장바구니에서 상품 수량 감소 액션
-      decreaseQuantity(state, action) {
-        const idToDecrease = action.payload;
-        const itemToDecrease = state.cartItems.find(item => item.id === idToDecrease);
-        if (itemToDecrease && itemToDecrease.quantity > 1) {
-          itemToDecrease.quantity--;
-        }
-      },
       setSearchQuery(state, action) {
         state.searchQuery = action.payload;
       }
@@ -72,5 +56,5 @@ const productSlice = createSlice({
  
 });
 
-export const {  increaseQuantity,decreaseQuantity,setSearchQuery} = productSlice.actions;
+export const { setSearchQuery} = productSlice.actions;
 export default productSlice.reducer;
