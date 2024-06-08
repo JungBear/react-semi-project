@@ -14,6 +14,7 @@ export default function Search() {
         console.log("검색어:", searchQuery); // 검색어가 제대로 업데이트되는지 확인
         dispatch(setSearchQuery(searchQuery));
         navigate(`/search?query=${encodeURIComponent(searchQuery)}`); // 검색 결과 페이지로 이동합니다.
+        setSearchQueryLocal("");
     };
 
     return (
