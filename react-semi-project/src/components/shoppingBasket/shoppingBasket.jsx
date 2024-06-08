@@ -15,6 +15,11 @@ export default function ShoppingBasket(){
         // 장바구니 항목이 변경될 때마다 체크된 상태를 업데이트
         setCheckedItems(cart.map((_, index) => index));
     }, [cart]);
+
+    let allPrice = 0
+    cart.map((item, idx)=>{
+        allPrice += item.quantity * item.price;
+    })
     
     const handleCountChange = (e, index) => {
         const newQuantity = parseInt(e.target.value, 10);
@@ -73,18 +78,14 @@ export default function ShoppingBasket(){
     }
     
     function fommater(num){
-        return new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(num).replace('₩', '');
+        return new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(num).replace('₩', '') + "원";
     }
 
-    function orderAllProduct(){
-
+    function orderAllProduct(totalProductAmount){
+        alert(fommater(allPrice));
     }
     
-    // function orderChoiceProduct(){
-    //     const price = checkedItems.map((item)=>{
-    //         item.quantity * item.price
-    //     })
-    // }
+
 
 
     return(
@@ -143,7 +144,7 @@ export default function ShoppingBasket(){
                                         <img className="quantity-btn" src="/img/btn_quantity_down.gif" onClick={()=>decreaseQuantityHandler(item)}/>
                                     </div>
                                 </td>
-                                <td className="font-bold">{productPrice(item)}원</td>
+                                <td className="font-bold">{productPrice(item)}</td>
                                 <td>무료</td>
                                 <td>
                                     <input type="button" onClick={() => handleRemoveFromCart(index)} value={"삭제"}/>
@@ -170,16 +171,16 @@ export default function ShoppingBasket(){
 
                         <tbody className="font-bold">
                             <tr>
-                                <td><strong>{fommater(totalProductAmount)}</strong>원</td>
+                                <td><strong>{fommater(totalProductAmount)}</strong></td>
                                 <td><span className="sign-span">+</span><strong>0</strong>원</td>
-                                <td><span className="sign-span">=</span><strong>{fommater(totalProductAmount)}</strong>원</td>
+                                <td><span className="sign-span">=</span><strong>{fommater(totalProductAmount)}</strong></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div className="order-btn-container">
-                    {/* <button className="order-btn btn-black" onClick={orderAllProduct()}>전체 상품 주문</button>
-                    <button className="order-btn btn-gray" onClick={orderChoiceProduct()}>선택 상품 주문</button> */}
+                    <button className="order-all-btn order-btn btn-black" onClick={()=>{orderAllProduct()}}>전체 상품 주문</button>
+                    <button className="order-choice-btn order-btn btn-gray" onClick={()=>{alert(fommater(totalProductAmount))}}>선택 상품 주문</button>
                 </div>
             </div>
         </div>
