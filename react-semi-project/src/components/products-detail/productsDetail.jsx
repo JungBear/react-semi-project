@@ -3,6 +3,7 @@ import products from "../../features/products/product";
 import "./productsDetail.css";
 
 
+
 export default function ProductDetail(){
     const [selectedColor, setSelectedColor] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
@@ -113,7 +114,7 @@ export default function ProductDetail(){
                 </div>
                 <div>
                     <button className="buy-btn">바로구매</button>
-                    <button className="cart-btn">장바구니</button>
+                    <button className="cart-btn" >장바구니</button>
                 </div>
             </div>   
         </div>
