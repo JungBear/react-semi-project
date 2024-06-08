@@ -29,6 +29,7 @@
 
 .product-item:hover {
     transform: translateY(-5px);
+    cursor: pointer;
 }
 
 .img-btn {

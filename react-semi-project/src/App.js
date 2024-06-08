@@ -16,12 +16,13 @@ function App() {
       <Header/>
       <Routes> 
         <Route path='/' element={<Home/>}/>
-        <Route path='/product' element={<ProductDetail />}/>
+        <Route path='/product/:id' element={<ProductDetail />}/>
         <Route path='/cart' element={<ShoppingBasket/>}/>
         <Route path='/outer' element={<Outer/>}/>
         <Route path='/trousers' element={<Trousers/>}/>
         <Route path='/tshirt' element={<Tshirt/>}/>
-        <Route path='/search' element={<SearchResults />} /> {/* 검색 결과를 렌더링하는 경로 추가 */}
+        <Route path='/search' element={<SearchResults />} />
+      
       </Routes>
     </div>
   );

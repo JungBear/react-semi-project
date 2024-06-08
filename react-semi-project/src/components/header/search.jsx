@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"; // useHistory 대신에 useNavigate를 import 합니다.
+import { useNavigate } from "react-router-dom"; 
 import { setSearchQuery } from "../../features/products/productslice";
-import "./search.css"; // 컴포넌트 스타일 파일을 가져옵니다.
+import "./search.css"; 
 
 export default function Search() {
     const [searchQuery, setSearchQueryLocal] = useState("");
     const dispatch = useDispatch();
-    const navigate = useNavigate(); // useNavigate 훅을 사용합니다.
+    const navigate = useNavigate(); // useNavigate 
 
     const handleSearch = (e) => {
         e.preventDefault();

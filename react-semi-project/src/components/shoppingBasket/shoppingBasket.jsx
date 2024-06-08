@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "./shoppingBasket.css"
 import { useDispatch, useSelector } from "react-redux";
-import {  changeQuantity, removeFromCart } from "../../features/cart/cartslice";
+import {  changeQuantity, decreaseQuantity, increaseQuantity, removeFromCart } from "../../features/cart/cartslice";
 
 export default function ShoppingBasket(){
     const dispatch = useDispatch(); // useDispatch를 사용하여 dispatch 함수 가져오기
@@ -63,10 +63,29 @@ export default function ShoppingBasket(){
         // console.log(totalProductAmount);
         return  fommater(tempProductPrice);
     }
+
+    const increaseQuantityHandler = (item) => {
+        dispatch(increaseQuantity(item))
+    }
+
+    const decreaseQuantityHandler = (item) =>{
+        dispatch(decreaseQuantity(item))
+    }
     
     function fommater(num){
         return new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(num).replace('₩', '');
     }
+
+    function orderAllProduct(){
+
+    }
+    
+    // function orderChoiceProduct(){
+    //     const price = checkedItems.map((item)=>{
+    //         item.quantity * item.price
+    //     })
+    // }
+
 
     return(
         <div className="shoppingcart-container">
@@ -111,13 +130,18 @@ export default function ShoppingBasket(){
                                     <p className="table-body-product-name font-bold">{item.productName}</p>
                                     <p className="table-body-select-option">{item.color[index]}, {item.size[index]}</p>
                                 </td>
-                                <td>
+                                <td className="quantity-container">
                                     <input
                                     type="text"
                                     value={item.quantity}
                                     size={1}
+                                    className="quantity-input"
                                     onChange={(e) => handleCountChange(e, index)}
                                     />
+                                    <div className="quantity-btn-container">
+                                        <img className="quantity-btn" src="/img/btn_quantity_up.gif" onClick={()=>increaseQuantityHandler(item)}/>
+                                        <img className="quantity-btn" src="/img/btn_quantity_down.gif" onClick={()=>decreaseQuantityHandler(item)}/>
+                                    </div>
                                 </td>
                                 <td className="font-bold">{productPrice(item)}원</td>
                                 <td>무료</td>
@@ -152,7 +176,10 @@ export default function ShoppingBasket(){
                             </tr>
                         </tbody>
                     </table>
-                    
+                </div>
+                <div className="order-btn-container">
+                    {/* <button className="order-btn btn-black" onClick={orderAllProduct()}>전체 상품 주문</button>
+                    <button className="order-btn btn-gray" onClick={orderChoiceProduct()}>선택 상품 주문</button> */}
                 </div>
             </div>
         </div>

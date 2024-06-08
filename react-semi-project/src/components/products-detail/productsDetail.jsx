@@ -1,98 +1,106 @@
-import { useState } from "react";
-import products from "../../features/products/product";
-import "./productsDetail.css";
+// ProductDetail.js
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import './productsDetail.css';
 
+export default function ProductDetail() {
+    const { id } = useParams(); // URL에서 제품 ID를 추출
+    const products = useSelector(state => state.products.products); // Redux 상태에서 제품 목록을 가져옴
+    const product = products.find(p => p.id === parseInt(id)); // URL에서 추출한 ID와 일치하는 제품을 찾음
 
+    // 상태 변수 초기화
 
-export default function ProductDetail(){
     const [selectedColor, setSelectedColor] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
     const [sizeButtonsEnabled, setSizeButtonsEnabled] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [selectedCount, setSelectedCount] = useState({});
 
-    const totalPrice = selectedOptions.reduce((acc, selectedOptions, i) => {
-        const price = products[0].price * selectedCount[i];
+    if (!product) { // 제품이 존재하지 않을 경우
+        return <div>Product not found</div>; // 제품을 찾을 수 없음을 표시
+    }
+
+    // 총 가격 계산
+    const totalPrice = selectedOptions.reduce((acc, option, i) => {
+        const price = product.price * selectedCount[i];
         return acc + price;
     }, 0);
 
     function selectColor(color) {
-        // 한번 선택한 색상을 선택할때 => 색상,사이즈 모두 선택해제 + 사이즈버튼 비활성화
-        if(selectedColor === color){
-            setSelectedColor('');
-            setSelectedSize('');
-            setSizeButtonsEnabled(false);
-        }else{
-            // 다른 색상선택 => 색상저장,사이즈 선택헤제(사이즈 다시 선택을 위해) + 사이즈 버튼 활성화
-            setSelectedColor(color);
-            setSelectedSize('');
-            setSizeButtonsEnabled(true);
+        if (selectedColor === color) { // 이미 선택된 색상을 다시 선택하면
+            setSelectedColor(''); // 색상 선택 해제
+            setSelectedSize(''); // 사이즈 선택 해제
+            setSizeButtonsEnabled(false); // 사이즈 버튼 비활성화
+        } else { // 다른 색상을 선택하면
+            setSelectedColor(color); // 색상 선택
+            setSelectedSize(''); // 기존 사이즈 선택 해제
+            setSizeButtonsEnabled(true); // 사이즈 버튼 활성화
         }
     }
-    
+
     function selectSize(size) {
-        setSelectedSize(selectedSize === size ? '' : size);
-        updateSelectedOptions(selectedColor, selectedSize === size ? '' : size);
+        setSelectedSize(selectedSize === size ? '' : size); // 선택된 사이즈 토글
+        updateSelectedOptions(selectedColor, selectedSize === size ? '' : size); // 선택된 옵션 업데이트
     }
 
     function updateSelectedOptions(color, size) {
-        if (color === '' || size === '') {
+        if (color === '' || size === '') { // 색상 또는 사이즈가 선택되지 않은 경우
             return;
-        }else if(color !== '' && size !== ''){
+        } else if (color !== '' && size !== '') { // 색상과 사이즈가 모두 선택된 경우
             const option = `${color}/${size}`;
-            if (!selectedOptions.includes(option)) {
-                setSelectedOptions(prevOptions => [...prevOptions, option]);
-            }else{
-                alert('이미 존재하는 옵션입니다. 리스트를 확인해주세요.');
+            if (!selectedOptions.includes(option)) { // 선택된 옵션이 이미 존재하지 않는 경우
+                setSelectedOptions(prevOptions => [...prevOptions, option]); // 선택된 옵션 추가
+            } else {
+                alert('이미 존재하는 옵션입니다. 리스트를 확인해주세요.'); // 이미 존재하는 옵션 경고
             }
         }
     }
 
     function deleteOption(i) {
-        // 선택한 i번째를 없앤 새 배열 생성
-        const newOptions = [...selectedOptions];
-        newOptions.splice(i, 1);
-        setSelectedOptions(newOptions);
+        const newOptions = [...selectedOptions]; // 기존 옵션 배열 복사
+        newOptions.splice(i, 1); // 선택된 옵션 제거
+        setSelectedOptions(newOptions); // 업데이트된 옵션 설정
     }
 
     function handleCountChange(i, count) {
         setSelectedCount(prevState => ({
             ...prevState,
-            [i]: count
+            [i]: count // 선택된 옵션의 수량 업데이트
         }));
     }
 
-    return(
+    return (
         <div className="detail-context-box">
             <div className="detail-img">
-                <img src={products[0].src}></img>
+                <img src={product.src} alt={product.productName} /> {/* 제품 이미지와 이름을 출력 */}
             </div>
             <div className="detail-info">
-                <h2>{products[0].productName}</h2>
-                <h3>{products[0].price.toLocaleString()}원</h3>
+                <h2>{product.productName}</h2>
+                <h3>{product.price.toLocaleString()}원</h3>
 
                 <div className="detail-color">
                     <div>색상</div>
-                    {products[0].color.map((color, i)=>(
-                        <div key={i} className={`detail-color-button ${selectedColor === color ? 'selected' : ''}`} 
-                            onClick={() => selectColor(color)}> 
+                    {product.color.map((color, i) => (
+                        <div key={i} className={`detail-color-button ${selectedColor === color ? 'selected' : ''}`}
+                            onClick={() => selectColor(color)}>
                             {color}
                         </div>
                     ))}
                 </div>
-                
+
                 <div className="detail-size">
                     <div>사이즈</div>
-                    {products[0].szie.map((size, i) =>(
-                        <div key={i} 
-                             className={`detail-size-button ${selectedSize === size ? 'selected' : ''} ${!sizeButtonsEnabled ? 'disabled' : ''} `} 
-                             onClick={() => !sizeButtonsEnabled ? 'disabled' : selectSize(size)}>
+                    {product.size.map((size, i) => (
+                        <div key={i}
+                            className={`detail-size-button ${selectedSize === size ? 'selected' : ''} ${!sizeButtonsEnabled ? 'disabled' : ''}`}
+                            onClick={() => !sizeButtonsEnabled ? null : selectSize(size)}>
                             {size}
                         </div>
                     ))}
                 </div>
                 <div className="detail-count">
-                { selectedOptions && (
+                    {selectedOptions && (
                         selectedOptions.map((option, i) => (
                             <div className="detail-selected" key={i}>
                                 <div>{option}</div>
@@ -103,10 +111,10 @@ export default function ProductDetail(){
                                         ))}
                                     </select>
                                 </div>
-                                <button className="seleted-delete-btn" onClick={() => deleteOption(i)}> x </button>
+                                <button className="selected-delete-btn" onClick={() => deleteOption(i)}> x </button>
                             </div>
                         ))
-                )}
+                    )}
                 </div>
                 <div className="total-price">
                     <div>총 결제금액</div>
@@ -116,7 +124,7 @@ export default function ProductDetail(){
                     <button className="buy-btn">바로구매</button>
                     <button className="cart-btn" >장바구니</button>
                 </div>
-            </div>   
+            </div>
         </div>
-    )    
+    );
 }

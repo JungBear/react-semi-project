@@ -73,6 +73,40 @@ strong,
     color: #707070;
 }
 
+.quantity-container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+    width: 100px; /* 필요한 만큼 조정 */
+    box-sizing: border-box;
+}
+
+.quantity-input {
+    box-sizing: border-box;
+    transform: translateY(93%);
+    height: 26px;
+    width:50%;
+    border: 1px solid #d4d8d9;
+   
+}
+
+.quantity-btn-container {
+    position: absolute;
+    display: flex;
+    left: 52px;
+    top: 25px;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none; /* input에 클릭을 전달하기 위해 추가 */
+}
+
+.quantity-btn {
+    cursor: pointer;
+    pointer-events: auto; /* 버튼에 클릭 이벤트 허용 */
+}
+
 .order-totalsummary{
     margin-top: 2rem;
     width: 90%;
@@ -99,4 +133,30 @@ strong,
 }
 .order-totalsummary tbody{
     border-bottom: 1px solid #000;
+}
+
+.order-btn-container{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 0.5rem;
+}
+
+.order-btn{
+    border: none;
+    outline: none;
+    padding: 0.75rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-black{
+    background-color: #000;
+    color: #fff;
+}
+
+.btn-gray{
+    background-color: #959595;
+    color: #fff;
 }
