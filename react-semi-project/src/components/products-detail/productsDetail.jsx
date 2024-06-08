@@ -1,7 +1,7 @@
 // ProductDetail.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './productsDetail.css';
 import { addToCart } from '../../features/cart/cartslice';
 
@@ -10,7 +10,7 @@ export default function ProductDetail() {
     const products = useSelector(state => state.products.products); // Redux 상태에서 제품 목록을 가져옴
     const product = products.find(p => p.id === parseInt(id)); // URL에서 추출한 ID와 일치하는 제품을 찾음
 
-
+    const dispatch = useDispatch();
 
     // 상태 변수 초기화
 
@@ -18,9 +18,12 @@ export default function ProductDetail() {
     const [selectedSize, setSelectedSize] = useState('');
     const [sizeButtonsEnabled, setSizeButtonsEnabled] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]);
-    const [selectedCount, setSelectedCount] = useState({});
-    const [seletedProduct, setSelectedProduct] = useState([product]);
+    const [selectedCount, setSelectedCount] = useState(0);
+    const [seletedProduct, setSelectedProduct] = useState({});
 
+    useEffect(() => {
+        console.log(seletedProduct);
+    }, [seletedProduct, selectedCount]);
 
     if (!product) { // 제품이 존재하지 않을 경우
         return <div>Product not found</div>; // 제품을 찾을 수 없음을 표시
@@ -28,7 +31,7 @@ export default function ProductDetail() {
 
     // 총 가격 계산
     const totalPrice = selectedOptions.reduce((acc, option, i) => {
-        const price = product.price * selectedCount[i];
+        const price = product.price * selectedCount;
         return acc + price;
     }, 0);
 
@@ -49,16 +52,15 @@ export default function ProductDetail() {
         updateSelectedOptions(selectedColor, selectedSize === size ? '' : size); // 선택된 옵션 업데이트
     }
 
-    function updateSelectedOptions(seletColor, size) {
-        if (seletColor === '' || size === '') { // 색상 또는 사이즈가 선택되지 않은 경우
+    function updateSelectedOptions(seletColor, selectSize) {
+        if (seletColor === '' || selectSize === '') { // 색상 또는 사이즈가 선택되지 않은 경우
             return;
-        } else if (seletColor !== '' && size !== '') { // 색상과 사이즈가 모두 선택된 경우 
-            const option = `${seletColor}/${size}`;
+        } else if (seletColor !== '' && selectSize !== '') { // 색상과 사이즈가 모두 선택된 경우 
+            const option = `${seletColor}/${selectSize}`;
             
-            if (!selectedOptions.includes(option)) { // 선택된 옵션이 이미 존재하지 않는 경우      
-                setSelectedProduct(Item => ({...Item, color: Item.color.map((value, index) => (value == selectColor? value : Item.color.splice(index))), size:[size]}));
-                
-                console.log(seletedProduct);
+            if (!selectedOptions.includes(option)) { // 선택된 옵션이 이미 존재하지 않는 경우    
+                const newProduct= {...product, color: seletColor, size: selectSize};
+                setSelectedProduct(newProduct);
                 setSelectedOptions(prevOptions => [...prevOptions, option]); // 선택된 옵션 추가
             } else {
                 alert('이미 존재하는 옵션입니다. 리스트를 확인해주세요.'); // 이미 존재하는 옵션 경고
@@ -72,11 +74,13 @@ export default function ProductDetail() {
         setSelectedOptions(newOptions); // 업데이트된 옵션 설정
     }
 
-    function handleCountChange(i, count) {
-        setSelectedCount(prevState => ({
-            ...prevState,
-            [i]: count // 선택된 옵션의 수량 업데이트
-        }));
+    function handleCountChange(quantity) {
+        setSelectedCount(Number(quantity));
+        const newProduct= {...seletedProduct, count: Number(quantity)};
+        
+            setSelectedProduct(newProduct);
+            
+            
     }
 
     return (
@@ -114,7 +118,7 @@ export default function ProductDetail() {
                             <div className="detail-selected" key={i}>
                                 <div>{option}</div>
                                 <div>
-                                    <select onChange={(e) => handleCountChange(i, e.target.value)}>
+                                    <select onChange={(e) => handleCountChange(e.target.value)}>
                                         {[1, 2, 3, 4, 5].map((num) => (
                                             <option key={num} value={num}>{num}개</option>
                                         ))}
@@ -131,7 +135,7 @@ export default function ProductDetail() {
                 </div>
                 <div>
                     <button className="buy-btn">바로구매</button>
-                    <button className="cart-btn" onClick={() => addToCart(seletedProduct)} >장바구니</button>
+                    <button className="cart-btn" onClick={() => (dispatch(addToCart(seletedProduct))) } >장바구니</button>
                 </div>
             </div>
         </div>

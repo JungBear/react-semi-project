@@ -73,7 +73,7 @@ strong,
     color: #707070;
 }
 
-.quantity-container {
+.count-container {
     display: flex;
     align-items: center;
     text-align: center;
@@ -83,7 +83,7 @@ strong,
     box-sizing: border-box;
 }
 
-.quantity-input {
+.count-input {
     box-sizing: border-box;
     transform: translateY(93%);
     height: 26px;
@@ -92,7 +92,7 @@ strong,
    
 }
 
-.quantity-btn-container {
+.count-btn-container {
     position: absolute;
     display: flex;
     left: 52px;
@@ -102,7 +102,7 @@ strong,
     pointer-events: none; /* input에 클릭을 전달하기 위해 추가 */
 }
 
-.quantity-btn {
+.count-btn {
     cursor: pointer;
     pointer-events: auto; /* 버튼에 클릭 이벤트 허용 */
 }

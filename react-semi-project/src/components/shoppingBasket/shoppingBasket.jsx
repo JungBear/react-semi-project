@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "./shoppingBasket.css"
 import { useDispatch, useSelector } from "react-redux";
-import {  changeQuantity, decreaseQuantity, increaseQuantity, removeFromCart } from "../../features/cart/cartslice";
+import {  changecount, decreasecount, increasecount, removeFromCart } from "../../features/cart/cartslice";
 
 export default function ShoppingBasket(){
     const dispatch = useDispatch(); // useDispatch를 사용하여 dispatch 함수 가져오기
@@ -17,9 +17,9 @@ export default function ShoppingBasket(){
     }, [cart]);
     
     const handleCountChange = (e, index) => {
-        const newQuantity = parseInt(e.target.value, 10);
-        if (newQuantity >= 0) { // 수량이 0보다 큰지 확인
-            dispatch(changeQuantity({ index, quantity: newQuantity }));
+        const newcount = parseInt(e.target.value, 10);
+        if (newcount >= 0) { // 수량이 0보다 큰지 확인
+            dispatch(changecount({ index, count: newcount }));
         }
     };
 
@@ -52,24 +52,24 @@ export default function ShoppingBasket(){
     const calculateTotalProductAmount = () => {
         return checkedItems.reduce((total, index) => {
             const item = cart[index];
-            return total + (item.price * item.quantity);
+            return total + (item.price * item.count);
         }, 0);
     };
       
     let totalProductAmount = calculateTotalProductAmount();
     
     const productPrice = (item)=>{
-        let tempProductPrice = item.price * item.quantity;
+        let tempProductPrice = item.price * item.count;
         // console.log(totalProductAmount);
         return  fommater(tempProductPrice);
     }
 
-    const increaseQuantityHandler = (item) => {
-        dispatch(increaseQuantity(item))
+    const increasecountHandler = (item) => {
+        dispatch(increasecount(item))
     }
 
-    const decreaseQuantityHandler = (item) =>{
-        dispatch(decreaseQuantity(item))
+    const decreasecountHandler = (item) =>{
+        dispatch(decreasecount(item))
     }
     
     function fommater(num){
@@ -82,7 +82,7 @@ export default function ShoppingBasket(){
     
     // function orderChoiceProduct(){
     //     const price = checkedItems.map((item)=>{
-    //         item.quantity * item.price
+    //         item.count * item.price
     //     })
     // }
 
@@ -130,17 +130,17 @@ export default function ShoppingBasket(){
                                     <p className="table-body-product-name font-bold">{item.productName}</p>
                                     <p className="table-body-select-option">{item.color[index]}, {item.size[index]}</p>
                                 </td>
-                                <td className="quantity-container">
+                                <td className="count-container">
                                     <input
                                     type="text"
-                                    value={item.quantity}
+                                    value={item.count}
                                     size={1}
-                                    className="quantity-input"
+                                    className="count-input"
                                     onChange={(e) => handleCountChange(e, index)}
                                     />
-                                    <div className="quantity-btn-container">
-                                        <img className="quantity-btn" src="/img/btn_quantity_up.gif" onClick={()=>increaseQuantityHandler(item)}/>
-                                        <img className="quantity-btn" src="/img/btn_quantity_down.gif" onClick={()=>decreaseQuantityHandler(item)}/>
+                                    <div className="count-btn-container">
+                                        <img className="count-btn" src="/img/btn_count_up.gif" onClick={()=>increasecountHandler(item)}/>
+                                        <img className="count-btn" src="/img/btn_count_down.gif" onClick={()=>decreasecountHandler(item)}/>
                                     </div>
                                 </td>
                                 <td className="font-bold">{productPrice(item)}원</td>
