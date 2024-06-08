@@ -10,7 +10,7 @@ export default function Header() {
         <NavLink exact to={'/'} className="main-logo">로고</NavLink>
         {/* 검색 컴포넌트를 추가합니다. */}
         <Search />
-        <button className="icon">장바구니</button>
+        <NavLink exact to={'/cart'} className="icon">장바구니</NavLink>
       </div>
       <nav className="nav-bar">
         <NavLink exact to={'/tshirt'} className="nav-link" activeClassName="active">상의</NavLink>
