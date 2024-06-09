@@ -124,12 +124,12 @@ export default function ProductDetail() {
                                 <div>{option}</div>
                                 <div>
                                     <select onChange={(e) => handleCountChange(e.target.value)}>
-                                        {[1, 2, 3, 4, 5].map((num) => (
+                                        {[0,1, 2, 3, 4, 5].map((num) => (
                                             <option key={num} value={num}>{num}개</option>
                                         ))}
                                     </select>
                                 </div>
-                                <button className="selected-delete-btn" onClick={() => deleteOption(i)}> x </button>
+                                <button className="seleted-delete-btn" onClick={() => deleteOption(i)}> x </button>
                             </div>
                         ))
                     )}
