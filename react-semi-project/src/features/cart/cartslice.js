@@ -33,8 +33,12 @@ const cartSlice = createSlice({
     // 장바구니에서 상품 제거 액션
     removeFromCart(state, action) {
       const idToRemove = action.payload;
-      state.cartItems = state.cartItems.filter(item => item.id !== idToRemove);
-    },    
+      // state를 직접 변형하지 않도록 함
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(item => item.id !== idToRemove)
+      }; 
+    }, 
     // 장바구니에서 상품 수량 증가 액션
     increasecount(state, action) {
         const idToIncrease = action.payload;

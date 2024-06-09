@@ -83,6 +83,11 @@ export default function ProductDetail() {
             
     }
 
+    const handleAddToCart = () => {
+        dispatch(addToCart(seletedProduct));
+    };
+
+
     return (
         <div className="detail-context-box">
             <div className="detail-img">
@@ -135,7 +140,7 @@ export default function ProductDetail() {
                 </div>
                 <div>
                     <button className="buy-btn">바로구매</button>
-                    <button className="cart-btn" onClick={() => (dispatch(addToCart(seletedProduct))) } >장바구니</button>
+                    <button className="cart-btn" onClick={handleAddToCart} >장바구니</button>
                 </div>
             </div>
         </div>

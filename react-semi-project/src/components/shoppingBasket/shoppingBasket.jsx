@@ -29,7 +29,11 @@ export default function ShoppingBasket(){
     };
 
     const handleRemoveFromCart = (index) => {
-        dispatch(removeFromCart(products[index].id)); // 첫 번째 제품의 ID를 액션으로 전달
+        console.log(index);
+        if (index >= 0 && index < cart.length) {
+          dispatch(removeFromCart(cart[index].id));
+          setCheckedItems(checkedItems.filter(item => item !== index));
+        }
       };
     
     // thead의 체크박스를 해제하면 전부해제, 체크하면 전부 체크
@@ -128,7 +132,7 @@ export default function ShoppingBasket(){
                                 </td>
                                 <td>
                                     <p className="table-body-product-name font-bold">{item.productName}</p>
-                                    <p className="table-body-select-option">{item.color[index]}, {item.size[index]}</p>
+                                    <p className="table-body-select-option">{item.color}, {item.size}</p>
                                 </td>
                                 <td className="count-container">
                                     <input
