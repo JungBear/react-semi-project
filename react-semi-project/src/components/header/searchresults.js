@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import './searchr.css'; // 검색 결과 스타일 파일을 가져옵니다.
+import { useNavigate } from 'react-router-dom';
 
 const SearchResults = () => {
   // Redux store에서 검색어와 검색 결과를 가져옵니다.
@@ -12,13 +13,19 @@ const SearchResults = () => {
     product.productName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const navigate = useNavigate();
+
+  const handleProductClick = (id) => {
+      navigate(`/product/${id}`);
+  };
+
   return (
     <div className="search-results-container">
       <h2>검색 결과</h2>
       {filteredProducts.length > 0 ? (
         <div className="product-list">
           {filteredProducts.map(product => (
-            <div key={product.id} className="product-item">
+            <div key={product.id} className="product-item" onClick={() => handleProductClick(product.id)}>
               <img src={product.src} alt={product.productName} className="product-image" />
               <div className="product-name">{product.productName}</div>
               <div className="product-price">{product.price}원</div>
