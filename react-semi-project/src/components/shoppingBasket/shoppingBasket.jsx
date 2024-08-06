@@ -5,10 +5,14 @@ import {  changecount, decreasecount, increasecount, removeFromCart } from "../.
 
 export default function ShoppingBasket(){
     const dispatch = useDispatch(); // useDispatch를 사용하여 dispatch 함수 가져오기
-    const products = useSelector((state) => state.products.products);
-    const cart = useSelector((state) => state.cart.cartItems);
+    const products = useSelector((state) => state.products.products); 
+    // 장바구니에 있는 cartSlice의 initialState가져오기
+    const cart = useSelector((state) => state.cart.cartItems); 
     
+    // 전체 체크되어 있는지 확인하기 위해 상태로 설정
+    // 기본값이 true인 이유는 맨처음엔 전부 체크되어 있는 상태이기 때문이다
     const [allChecked, setAllChecked] = useState(true);
+    // 개별 선택한 경우 선택한 아이템들 넣기
     const [checkedItems, setCheckedItems] = useState([]);
 
     useEffect(() => {
@@ -16,20 +20,24 @@ export default function ShoppingBasket(){
         setCheckedItems(cart.map((_, index) => index));
     }, [cart]);
 
+    // 가격 변경
     let allPrice = 0
     cart.map((item, idx)=>{
         allPrice += item.quantity * item.price;
     })
     
+    // 장바구니에서 수량 변경에 대한 핸들러
     const handleCountChange = (e, index) => {
-        const newcount = parseInt(e.target.value, 10);
+        const newcount = parseInt(e.target.value, 10); // 10진수를 기준으로 바꾼다
         if (newcount >= 0) { // 수량이 0보다 큰지 확인
             dispatch(changecount({ index, count: newcount }));
         }
     };
 
+    // 장바구니에서 삭제하기 위한 핸들러
     const handleRemoveFromCart = (index) => {
         console.log(index);
+        // 존재하는지 확인
         if (index >= 0 && index < cart.length) {
           dispatch(removeFromCart(cart[index].id));
           setCheckedItems(checkedItems.filter(item => item !== index));
@@ -67,24 +75,28 @@ export default function ShoppingBasket(){
       
     let totalProductAmount = calculateTotalProductAmount();
     
+    // 상품 가격 계산하는 
     const productPrice = (item)=>{
         let tempProductPrice = item.price * item.count;
         // console.log(totalProductAmount);
         return  fommater(tempProductPrice);
     }
 
+    // 수량증가를 cartSlice에 적용해주기위해
     const increasecountHandler = (item) => {
         dispatch(increasecount(item))
     }
 
+    // 수량 감소를 cartSlice에 적용해죽 위해
     const decreasecountHandler = (item) =>{
         dispatch(decreasecount(item))
     }
     
+    // 원화의 포맷을 위한 포매터
     function fommater(num){
         return new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(num).replace('₩', '') + "원";
     }
-
+    
     function orderAllProduct(totalProductAmount){
         alert(fommater(allPrice));
     }
